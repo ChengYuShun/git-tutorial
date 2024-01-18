@@ -1,0 +1,59 @@
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Git 教程 &ndash; 下载 Git &ndash; Windows</title>
+  </head>
+  <body>
+    <h1>在 Windows 上安装 Git</h1>
+
+    <p> 如果你是有经验的 Unix 用户，我推荐你先安装 <a href="https://www.msys2.org">MSYS2</a>，然后通过其中的包管理器下载 Git。否则的话就按照下面的教程一步一步来吧。
+    </p>
+
+    <p> 先从 <a href="https://git-scm.com/download/win">Git 官网</a>上下载 Git 安装包（点击「Click here to download」），然后运行安装包。
+    </p>
+
+    <p> 以下是安装页面的的推荐设置。
+    </p>
+
+    <ul>
+      <li> Information：显示的是 <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GNU General Public License, version 2</a> 的内容，不想看就直接点「Next」
+
+      <li> Select Destination Location：选择你认为合适的下载位置
+
+      <li> Select Components：选择要安装的组件；如果看得懂的话可以自行修改，否则默认就可以，后面都可以调整
+
+      <li> Select Start Menu Folder：选择开始菜单文件夹名称，没有必要修改默认；不过如果你不想在开始菜单里建文件夹的话，可以选择「Don't create a Start Menu folder」
+
+      <li> Choosing the default editor used by Git：选择默认编辑器；除非你知道怎么用 Vim，否则<em>不要</em>选它；选择一个你安装了并且知道怎么用的编辑器（比如 Visual Studio Code）；如果你不知道选什么，不如选 Notepad （记事本，<em>不是</em> Notepad++）
+
+      <li> Adjusting the name of the initial branch in new repositories：默认分支名；选择「Let Git decide」，除非你认为「master」这个词会让你联想到奴隶制（详见<a href="https://www.zdnet.com/article/github-to-replace-master-with-alternative-term-to-avoid-slavery-references/">这里</a>）
+
+      <li> Adjusting your PATH environment：不要修改默认推荐选项；如果你知道你在做什么，你可以选第一个；非常不推荐第三个选项
+
+      <li> Choosing the SSH executable：除非你知道你在做什么，否则不要修改默认选项
+
+      <li> Choosing HTTPS transport backend：不建议修改默认选项
+
+      <li> Configuring the line ending conversions：强烈建议选择第一个选项（「Checkout Windows style, commit Unix-style line endings」）
+
+      <li> Configuring the terminal emulator to use with Git Bash：建议选择默认选项（MinTTY）
+
+      <li> Choose the default behavior of <code>git pull</code>：选择 <code>git pull</code> 该干什么；不建议修改默认选项（「Fast-forward or merge」），除非你知道你在做什么
+
+      <li> Choose a credential helper：建议使用 Git Credential Manager，除非你会用 SSH 或者能背下十几位的密码
+
+      <li> Configuring extra options：不建议修改默认选项
+        <ul>
+          <li> Enable file system caching：建议勾选
+          <li> Enable symbolic links：不建议勾选
+        </ul>
+      <li> Configuring experimental options：不建议勾选任何选项；点击「Install」直接开始安装
+    </ul>
+
+    <p> 装好后可以选不看 Release Notes。
+    </p>
+
+  </body>
+</html>
