@@ -7,3 +7,9 @@ em {
     font-style: normal;
     font-weight: bold;
 }
+
+code {
+    background-color: lightgray;
+    padding: .1em .4em;
+    border-radius: 6px;
+}
