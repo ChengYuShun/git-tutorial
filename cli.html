@@ -19,11 +19,9 @@
 
     <p> 打开你的终端（macOS：打开 Terminal 应用；Windows：打开 Git Bash 应用）。你会在某个地方看到一个波浪线 <code>~</code>，它代表你的用户<em>目录</em>，对应 macOS 上的 <code>/Users/你的用户名</code> 和 Windows 上的 <code>C:\Users\你的用户名</code>。目录是 Unix 上文件夹的别名。
 
-    <p> 输入 <code>cd /</code>，回车，你会看到刚才的波浪线变成了斜杠 <code>/</code>。这代表你当前的目录切换到了根目录 <code>/</code>。Unix 系统上的所有文件全都在根目录下。现在再输入 <code>cd ~</code>，你就会回到用户目录下。<code>cd</code> 是「Change Directory」的缩写，可以让你切换当前的目录。通常情况下你每次打开终端都会处于用户目录 <code>~</code> 下。
+    <p> 输入 <code>cd /</code>，回车，你会看到刚才的波浪线变成了斜杠 <code>/</code>。这代表你当前的目录切换到了根目录 <code>/</code>。现在再输入 <code>cd ~</code>，你就会回到用户目录下。<code>cd</code> 是「Change Directory」的缩写，可以让你切换当前的目录。通常情况下你每次打开终端都会处于用户目录 <code>~</code> 下。
 
     <p> 输入 <code>mkdir test</code>，然后 <code>cd test</code>，你就会进入到 <code>~/test</code> 目录里。<code>mkdir</code> 是「MaKe DIRectory」的缩写，它让你在 <code>~</code> 下新建了一个名叫 <code>test</code> 的目录。
-
-    <p> 再 <code>mkdir test2</code>，然后 <code>cd test2</code>，然后输入 <code>cd ..</code>，你会退回 <code>~/test</code>。这是因为 <code>..</code> 代表上一级目录。输入 <code>cd test2/..</code>，你会发现你还在 <code>~/test</code> 里，因为 <code>test2/..</code> 代表 <code>test2</code> 的上一级目录，也就是 <code>test</code>。
 
     <h3><code>ls</code> &amp; <code>touch</code></h3>
 
@@ -39,8 +37,8 @@ empty_file test2</pre>
     <pre>
 $ ls -l
 total 0
--rw-r--r-- 1 xxx xxx 0 Jan 19 16:09 empty_file
-drwxr-xr-x 1 xxx xxx 0 Jan 19 15:25 test2</pre>
+-rw-r--r-- 1 xxx xxx 0 ??? ?? ??:?? empty_file
+drwxr-xr-x 1 xxx xxx 0 ??? ?? ??:?? test2</pre>
 
     <p> 注意 <code>test2</code> 那一行由 <code>d</code> 开头，说明它是一个目录。
 
@@ -51,6 +49,25 @@ $ touch test2/emtpy_file2
 $ ls test2
 empty_file2</pre>
 
+    <h3><code>rm</code> &amp; <code>rmdir</code></h3>
+
+    <p> 运行：
+
+    <pre>
+$ rm test2/empty_file2
+$ ls test2</pre>
+
+    <p> <code>rm</code> 是「ReMove」的缩写，用于删除文件。
+
+    <p> 再运行：
+
+    <pre>
+$ rmdir test2
+$ ls
+empty_file</pre>
+
+    <p> <code>rmdir</code> 是「ReMove DIRectory」的缩写，用于删除<em>空的</em>目录。
+
     <h3><code>echo</code> &amp; <code>cat</code></h3>
 
     <p> 在 <code>~/test</code> 里运行：
@@ -60,7 +77,7 @@ $ echo hello
 hello
 $ echo hello > hello_file
 $ ls
-empty_file hello_file test2
+empty_file hello_file
 $ cat hello_file
 hello</pre>
 
@@ -74,12 +91,11 @@ $ cat files > files_copy
 $ cat files_copy
 empty_file
 files
-hello_file
-test2</pre>
+hello_file</pre>
 
     <p> （注意 <code>ls</code> 在输入到文件时格式会略有不同，文件名之间会换行而非空格。）
 
-    <p> 连按几次方向上键，直到当前的命令变成 <code>echo hello > hello_file</code>，然后回车。这时 <code>cat hello_file</code> 还会得到 <code>hello</code>，说明 <code>&gt;</code> 会先把原来的内容清除，然后再写入。如果想要保留原来的内容，运行：
+    <p> 连按几次方向上键，直到当前的命令变成 <code>echo hello > hello_file</code>，然后回车。这时，运行 <code>cat hello_file</code> 还会得到 <code>hello</code>，说明 <code>&gt;</code> 会先把原来的内容清除，然后再写入。如果想要保留原来的内容，运行：
 
     <pre>
 $ echo world >> hello_file
