@@ -11,6 +11,8 @@
 
     <p> 我们会使用 Git 的命令行界面。Git 还有很多其他使用方式，比如 VS Code 插件、<a href="https://magit.vc">Magit</a>、<a href="https://github.com/jesseduffield/lazygit">lazygit</a>，等等。但是通常情况下你只要会使用命令行，就可以在很短的时间内学会 Git 的图形化或者文本化界面。
 
+    <p> 从现在开始我们输入的所有命令，你都不必完全照做，而且就算照做了也未必会得到完全一样的结果。你只要理解了并且自己动手试一试这种用法就好。
+
     <p> 如果你会使用 Unix 命令行，可以直接跳到 <a href="#git-config">Git 基础配置</a>一节。
 
     <h2>基础命令</h2>
@@ -139,13 +141,13 @@ Mandatory arguments to long options are mandatory for short options too.
 
     <p> 但是这样看起来很麻烦。如果你幸运地拥有一台 macOS，运行 <code>man ls</code>，然后用上下方向键（或者 <a href="https://en.wikipedia.org/wiki/Arrow_keys#HJKL_keys">HJKL</a>）浏览。<code>man</code> 是「MANual」的缩写。
 
-    <p> 在了解了 Git 的基本操作后，你可以通过 <code>--help</code> 或 <code>-h</code> 选项，或者 <code>man</code> 来查询 Git 每一个命令的用法。
+    <p> 这个教程不会像 <a href="https://git-scm.com/book/zh/v2">Pro Git</a> 那样教你每个命令的所有常用用法，事实上你也不需要背下每个命令。你只要知道什么时候大概该用什么，然后再用 <code>--help</code> 选项或者 <code>man</code> 查具体怎么用就好。
 
     <h2 id="git-config">Git 基础配置</h2>
 
-    <p> 接下来是至关重要的一步。
+    <p> 接下来是至关重要的一步。如果你没有把这一步做好，之后使用 Git 可能会遇到问题。
 
-    <p>  Git 在管理代码时会储存管理者的名字和邮箱，所以你要告诉 Git 你叫什么以及你的邮箱是什么。运行：
+    <p> Git 在管理代码时会储存管理者的名字和邮箱，所以你要告诉 Git 你叫什么以及你的邮箱是什么。运行：
 
     <pre>
 $ git config --global user.name "你的名字"
