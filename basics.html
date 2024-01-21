@@ -131,6 +131,8 @@ Date:   ??? ??? ?? ??:??:?? ???? +????
 
     <p> Git 打印出了你的提交记录。<code>HEAD</code> 是你目前所在的提交。
 
+    <p> 如果提交记录很长，Git 只会显示最上面的一部分。使用上下方向键或者 <a href="https://en.wikipedia.org/wiki/Arrow_keys#HJKL_keys">HJKL</a> 浏览。
+
     <h2><code>git tag</code></h2>
 
     <p> 当你的项目取得阶段性进展时，你可以给目前的版本编一个号。运行：
@@ -193,7 +195,7 @@ Date:   ??? ??? ?? ??:??:?? ???? +????
 
     <pre>
 $ touch new_file
-$ echo new_file > files
+$ echo new_file &gt;&gt; files
 $ git status
 On branch master
 Changes not staged for commit:
@@ -207,15 +209,79 @@ Untracked files:
 
 no changes added to commit (use "git add" and/or "git commit -a")</pre>
 
-    <p> 如果想要看到某文件现在的版本和暂存的版本之间的区别，运行 <code>git diff 文件名</code>。加号 <code>+</code> 后面的是增加的行，减号 <code>-</code> 后面的是删掉的行。
+    <p> 如果想要看到某文件现在的版本和暂存的版本之间的区别，运行：
 
-    <p> 如果要查看暂存版本和提交版本之间的区别，运行 <code>git diff --cached 文件名</code>。根据 <code>git diff --help</code> 或者 <code>man git diff</code>，试一试：
+    <pre>
+$ git diff files
+diff --git a/files b/files
+index f2d4e4a..f31f5fe 100644
+--- a/files
++++ b/files
+@@ -2,3 +2,4 @@ empty_file
+ files
+ hello_file
+ test2
++new_file</pre>
+
+    <p> 加号 <code>+</code> 后面的是增加的行，如果碰到减号 <code>-</code> 后面就是删掉的行。
+
+    <p> 如果要查看暂存版本和提交版本之间的区别，运行：
+
+    <pre>
+$ git add files new_file
+$ git diff --cached
+diff --git a/files b/files
+index f2d4e4a..f31f5fe 100644
+--- a/files
++++ b/files
+@@ -2,3 +2,4 @@ empty_file
+ files
+ hello_file
+ test2
++new_file
+diff --git a/new_file b/new_file
+new file mode 100644
+index 0000000..e69de29</pre>
+
+    <p> 根据 <code>git diff --help</code> 或者 <code>man git diff</code>，试一试：
 
     <ul>
       <li> <code>git diff</code>
       <li> <code>git diff HEAD~</code>
       <li> <code>git diff HEAD~ HEAD</code>
     </ul>
+
+    <h2><code>git checkout</code> 恢复文件</h2>
+
+    <p> <code>checkout</code> 命令有两种用法，我们现在只需要知道一种。运行：
+
+    <pre>
+$ git diff HEAD~
+diff --git a/empty_file b/empty_file
+index b8008a4..60b9387 100644
+--- a/empty_file
++++ b/empty_file
+@@ -0,0 +1,2 @@
++nothing
++just nothing
+$ git checkout HEAD~ empty_file
+Updated 1 path from b99d3bb
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+        modified:   empty_file
+
+$ git diff --cached
+diff --git a/empty_file b/empty_file
+index b49604a..e69de29 100644
+--- a/empty_file
++++ b/empty_file
+@@ -1,2 +0,0 @@
+-nothing
+-just nothing</pre>
+
+    <p> <code>git checkout 某提交 某文件名</code> 会从该提交中恢复一个文件。
 
     <!-- <h2><code>git stash</code></h2> -->
 
