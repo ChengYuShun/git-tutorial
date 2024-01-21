@@ -59,6 +59,8 @@ $ ls test2</pre>
 
     <p> <code>rm</code> 是「ReMove」的缩写，用于删除文件。
 
+    <p> 如果你想删除一个目录和其中的所有文件，运行 <code>rm -r 目录名</code>。所以<em>不要</em>尝试运行 <code>rm -rf /</code>。
+
     <p> 再运行：
 
     <pre>
@@ -67,6 +69,17 @@ $ ls
 empty_file</pre>
 
     <p> <code>rmdir</code> 是「ReMove DIRectory」的缩写，用于删除<em>空的</em>目录。
+
+    <h3><code>mv</code> &amp; <code>cp</code></h3>
+
+    <p> <code>mv</code> 和 <code>cp</code> 分别是「MoVe」和「CoPy」的缩写。猜猜以下命令会干什么：
+
+    <pre>
+$ cp empty_file another_empty_file
+$ mv empty_file ..
+$ mv another_empty_file empty_file</pre>
+
+    <p> <code>cp</code> 和 <code>rm</code> 一样，都可以用 <code>-r</code> 选项来选中目录和其中的所有文件。但是 <code>mv</code> 不需要，因为目录里的文件没有被重命名。
 
     <h3><code>echo</code> &amp; <code>cat</code></h3>
 
