@@ -1,0 +1,222 @@
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Git 教程 &ndash; Git 基本操作</title>
+  </head>
+
+  <body>
+
+    <h1>Git 基本操作</h1>
+
+    <h2><code>git init</code></h2>
+
+    <p> 首先我们需要新建一个 Git <em>仓库</em>。所谓仓库，就是一个存放文件的目录。Git 只会管理仓库里的文件。运行：
+
+    <pre>
+$ cd ~/test
+$ git init
+Initialized empty Git repository in 某某/test/.git/</pre>
+
+    <p> 当然也可以：
+
+    <pre>
+$ mkdir test_repo
+$ git init test_repo
+Initialized empty Git repository in 某某/test_repo/.git/</pre>
+
+    <h2>Git 文件状态</h2>
+
+    <p> 你对仓库的修改分为三种：已提交、已暂存和未暂存。这里的修改包括创建、修改和删除文件。
+
+    <p> 通常情况下，你每实现一个功能或者修复一个问题，都要<em>提交</em>（commit）目前的代码。你的每一次提交都会永久保存下来，以便在需要时从历史提交中恢复一些内容。
+
+    <p> 如果你想要 Git 帮你暂时储存一些修改，但不要立刻提交，你就可以<em>暂存</em>（stage）它们。Git 暂存区有三个英文名：staging area、cache 以及 index，这些名字都是一个意思，但有些时候 Git 只接受一个名字。
+
+    <p> 如果一次修改既没有提交由没有暂存，那它就是未暂存的。你最好尽快暂存它们，以免不小心删掉你的劳动成果。注意，如果一个新建的文件没有暂存，那么 Git 会叫它 untracked file，而不是 unstaged change，虽然它们都是一个意思。
+
+    <h2><code>git status</code></h2>
+
+    <p> 在你的 Git 仓库里运行：
+
+    <pre>
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+        empty_file
+        files
+        hello_file
+
+nothing added to commit but untracked files present (use "git add" to track)</pre>
+
+    <p> 分支（branch）我们可以先忽略。可以看到所有的文件都是 untracked。想要暂存它们，Git 告诉我们，运行：
+
+    <pre>
+$ git add empty_file files hello_file
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+&Tab;new file:    empty_file
+&Tab;new file:    files
+&Tab;new file:    hello_file
+
+</pre>
+
+    <p> 像这样暂存或恢复修改完全可以根据 <code>git status</code> 的提示输入对应命令，没有必要把所有命令都记下来。接下来，试着从暂存区里恢复一些修改，再把以下的修改暂存一下：
+
+    <pre>
+$ echo nothing > empty_file</pre>
+
+    <h2><code>git commit</code></h2>
+
+    <p> 提交现在已经暂存的修改，运行：
+
+    <pre>
+$ git commit -m "Initial commit."
+[master (root-commit) dfb9362] Initial commit.
+ 3 files changed, x insertions(+)
+ create mode 100644 empty_file
+ create mode 100644 files
+ create mode 100644 hello_file
+</pre>
+
+    <p> （如果你忘了加 <code>-m</code> 选项，可能会进入 Vim 编辑器。退出按 Esc、冒号「:」、字母「q」、回车。）
+
+    <p> 选项 <code>-m</code> 后面的是这个提交的 message，让别人快速了解你都做了哪些修改。这里的 <code>dfb9362</code> 是这个提交的哈希值。你的哈希值可能和我的不太一样，因为提交时间、提交者的名字和邮箱都会用于哈希值计算。
+
+    <p> 这时再运行：
+
+    <pre>
+$ git status
+On branch master
+nothing to commit, working tree clean</pre>
+
+    <p> 「working tree」是当前目录的别称。Git 内部把目录叫做「tree」。
+
+    <h2><code>git log</code></h2>
+
+    <p> 再做一个提交：
+
+    <pre>
+$ echo just nothing >> empty_file
+$ git add empty_file
+$ git commit -m "Second commit."
+[master 0b8cf86] Second commit.
+ 1 file changed, 2 insertions(+)</pre>
+
+    <p> 运行：
+
+    <pre>
+$ git log
+commit 0b8cf86c68a62eabf74f65424bfc0be496a1d10 (HEAD -&gt; master)
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    Second commit.
+
+commit dfb9362516fc00bd9ea063559c89ee8dc97a5c36
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    Initial commit.</pre>
+
+    <p> Git 打印出了你的提交记录。<code>HEAD</code> 是你目前所在的提交。
+
+    <h2><code>git tag</code></h2>
+
+    <p> 当你的项目取得阶段性进展时，你可以给目前的版本编一个号。运行：
+
+    <pre>
+$ git tag v1.0
+$ git log
+commit 0b8cf86c68a62eabf74f65424bfc0be496a1d10 (HEAD -&gt; master, tag: v1.0)
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    Second commit.
+
+commit dfb9362516fc00bd9ea063559c89ee8dc97a5c36
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    Initial commit.
+</pre>
+
+    <h2>引用提交</h2>
+
+    <p> 当你引用一个提交时，告诉 Git 这个提交哈希值的前几位。比如：
+
+    <pre>
+$ git log dfb9362516fc00
+commit dfb9362516fc00bd9ea063559c89ee8dc97a5c36
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    Initial commit.</pre>
+
+    <p> 就会把 <code>dfb9362516fc00</code> 及其之前所有的提交列出来。
+
+    <!-- 之所以是之前的所有提交，而不是之后，是因为 Git 内部用单向链表储存提交记录，每一个提交都指向它的上一个提交。 -->
+
+    <p> 除此之外，你还可以：
+
+    <pre>
+$ git log HEAD~
+commit dfb9362516fc00bd9ea063559c89ee8dc97a5c36
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    Initial commit.</pre>
+
+    <p> <code>~</code> 代表 <code>HEAD</code> 的上一个提交。试一试：
+
+    <ul>
+      <li> <code>git log HEAD~1</code>
+      <li> <code>git log HEAD</code>
+      <li> <code>git log 0b8cf86c~</code>
+      <li> <code>git log v1.0</code>
+      <li> <code>git tag v0.0 HEAD~</code>
+    </ul>
+
+    <h2><code>git diff</code></h2>
+
+    <p> 如果我们再做一些修改：
+
+    <pre>
+$ touch new_file
+$ echo new_file > files
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+        modified:   files
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+        new_file
+
+no changes added to commit (use "git add" and/or "git commit -a")</pre>
+
+    <p> 如果想要看到某文件现在的版本和暂存的版本之间的区别，运行 <code>git diff 文件名</code>。如果是暂存版本和提交版本之间的区别，运行 <code>git diff --cached 文件名</code>。根据 <code>git diff --help</code> 或者 <code>man git diff</code>，试一试：
+
+    <ul>
+      <li> <code>git diff</code>
+      <li> <code>git diff HEAD~</code>
+      <li> <code>git diff HEAD~ HEAD</code>
+    </ul>
+
+    <!-- <h2><code>git stash</code></h2> -->
+
+    <!-- <p> <code>git stash</code> 是一个非常有用但不必须的功能。如果你想尽快掌握 Git 分支，你可以先跳过这一部分，否则我建议你读下去。 -->
+
+</html>
