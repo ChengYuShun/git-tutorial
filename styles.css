@@ -1,6 +1,6 @@
 body {
     margin: auto;
-    max-width: 50rem;
+    width: clamp(15rem, 90%, 50rem);
 }
 
 em {
