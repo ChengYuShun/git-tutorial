@@ -8,6 +8,10 @@ em {
     font-weight: bold;
 }
 
+code {
+    white-space: nowrap;
+}
+
 code, pre {
     background-color: lightgray;
     padding: .1em .4em;
