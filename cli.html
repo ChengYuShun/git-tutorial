@@ -7,6 +7,7 @@
   </head>
 
   <body>
+
     <h1>如何使用 Unix 命令行</h1>
 
     <p> 我们会使用 Git 的命令行界面。Git 还有很多其他使用方式，比如 VS Code 插件、<a href="https://magit.vc">Magit</a>、<a href="https://github.com/jesseduffield/lazygit">lazygit</a>，等等。但是通常情况下你只要会使用命令行，就可以在很短的时间内学会 Git 的图形化或者文本化界面。
@@ -15,9 +16,7 @@
 
     <p> 如果你会使用 Unix 命令行，可以直接跳到 <a href="#git-config">Git 基础配置</a>一节。
 
-    <h2>基础命令</h2>
-
-    <h3><code>cd</code> &amp; <code>mkdir</code></h3>
+    <h2><code>cd</code> &amp; <code>mkdir</code></h2>
 
     <p> 打开你的终端（macOS：打开 Terminal 应用；Windows：打开 Git Bash 应用）。你会在某个地方看到一个波浪线 <code>~</code>，它代表你的用户<em>目录</em>，对应 macOS 上的 <code>/Users/你的用户名</code> 和 Windows 上的 <code>C:\Users\你的用户名</code>。目录是 Unix 上文件夹的别名。
 
@@ -25,7 +24,7 @@
 
     <p> 输入 <code>mkdir test</code>，然后 <code>cd test</code>，你就会进入到 <code>~/test</code> 目录里。<code>mkdir</code> 是「MaKe DIRectory」的缩写，它让你在 <code>~</code> 下新建了一个名叫 <code>test</code> 的目录。
 
-    <h3><code>ls</code> &amp; <code>touch</code></h3>
+    <h2><code>ls</code> &amp; <code>touch</code></h2>
 
     <p> 在 <code>~/test</code> 里运行以下命令（<code>$</code> 后面的是你要输入的；没有 <code>$</code> 的行是你应该看到的）：
 
@@ -51,7 +50,7 @@ $ touch test2/emtpy_file2
 $ ls test2
 empty_file2</pre>
 
-    <h3>隐藏文件</h3>
+    <h2>隐藏文件</h2>
 
     <p> 在 Unix 上，所有 <code>.</code> 开头的文件都是隐藏文件。运行：
 
@@ -64,7 +63,7 @@ empty_file .hidden_file test2</pre>
 
     <p> 选项 <code>-a</code> 会把隐藏文件也列出来。
 
-    <h3><code>rm</code> &amp; <code>rmdir</code></h3>
+    <h2><code>rm</code> &amp; <code>rmdir</code></h2>
 
     <p> 运行：
 
@@ -85,7 +84,7 @@ empty_file</pre>
 
     <p> <code>rmdir</code> 是「ReMove DIRectory」的缩写，用于删除<em>空的</em>目录。
 
-    <h3><code>mv</code> &amp; <code>cp</code></h3>
+    <h2><code>mv</code> &amp; <code>cp</code></h2>
 
     <p> <code>mv</code> 和 <code>cp</code> 分别是「MoVe」和「CoPy」的缩写。猜猜以下命令会干什么：
 
@@ -96,7 +95,7 @@ $ mv another_empty_file empty_file</pre>
 
     <p> <code>cp</code> 和 <code>rm</code> 一样，都可以用 <code>-r</code> 选项来选中目录和其中的所有文件。但是 <code>mv</code> 不需要，因为目录里的文件没有被重命名。
 
-    <h3><code>echo</code> &amp; <code>cat</code></h3>
+    <h2><code>echo</code> &amp; <code>cat</code></h2>
 
     <p> 在 <code>~/test</code> 里运行：
 
@@ -152,9 +151,9 @@ Mandatory arguments to long options are mandatory for short options too.
                                      .
                                      .</pre>
 
-    <h3><code>man</code>, <code>less</code> & 管道</h3>
+    <h2><code>man</code>, <code>less</code> & 管道</h2>
 
-    <p> 但是选项 <code>--help</code> 输出的东西太多了，you want <code>less</code>。输入 <code>ls --help | less</code>，然后用以下的快捷键浏览：
+    <p> <code>--help</code> 输出的东西太多了，you want <code>less</code>。输入 <code>ls --help | less</code>，然后用以下的快捷键浏览：
 
     <ul>
       <li> 退出：按「q」
