@@ -51,6 +51,19 @@ $ touch test2/emtpy_file2
 $ ls test2
 empty_file2</pre>
 
+    <h3>隐藏文件</h3>
+
+    <p> 在 Unix 上，所有 <code>.</code> 开头的文件都是隐藏文件。运行：
+
+    <pre>
+$ touch .hidden_file
+$ ls
+empty_file test2
+$ ls -a
+empty_file .hidden_file test2</pre>
+
+    <p> 选项 <code>-a</code> 会把隐藏文件也列出来。
+
     <h3><code>rm</code> &amp; <code>rmdir</code></h3>
 
     <p> 运行：
