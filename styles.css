@@ -18,6 +18,10 @@ code, pre {
     border-radius: 6px;
 }
 
+footer {
+    text-align: center;
+}
+
 .license-notice {
     font-size: 0.8rem;
 }
