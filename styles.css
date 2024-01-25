@@ -17,3 +17,11 @@ code, pre {
     padding: .1em .4em;
     border-radius: 6px;
 }
+
+.license-notice {
+    font-size: 0.8rem;
+}
+
+.license-name {
+    display: inline-block;
+}
