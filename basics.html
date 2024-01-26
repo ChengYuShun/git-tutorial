@@ -12,12 +12,14 @@
 
     <h2><code>git init</code></h2>
 
-    <p> 首先我们需要新建一个 Git <em>仓库</em>。所谓仓库，就是一个存放文件的目录。Git 只会管理仓库里的文件。运行：
+    <p> 首先我们需要新建一个 Git <em>仓库</em>来管理一个目录里的文件，运行：
 
     <pre>
 $ cd ~/test
 $ git init
 Initialized empty Git repository in 某某/test/.git/</pre>
+
+    <p> 仓库就是 <code>.git</code> 这个隐藏目录，用来备份文件和存放其他信息。
 
     <p> 当然也可以：
 
@@ -26,19 +28,21 @@ $ mkdir test_repo
 $ git init test_repo
 Initialized empty Git repository in 某某/test_repo/.git/</pre>
 
-    <h2>Git 文件状态</h2>
+    <h2>Git 基本概念</h2>
 
-    <p> 你对仓库的修改分为三种：已提交、已暂存和未暂存。这里的修改包括创建、修改和删除文件。
+    <p> 仓库管理的目录，不包括其中的 <code>.git</code>，被 Git 称作<em>工作树</em>（working tree）。Git 内部把目录叫做树。
 
-    <p> 通常情况下，你每实现一个功能或者修复一个问题，都要<em>提交</em>（commit）目前的代码。你的每一次提交都会永久保存下来，以便在需要时从历史提交中恢复一些内容。
+    <p> 当你想让 Git 备份工作树里某些文件的时候，你可以把这些文件<em>暂存</em>（stage）。Git 暂存区有三个英文名：staging area、cache 以及 index，这些名字都是一个意思。注意，Git 不会暂存空目录。
 
-    <p> 如果你想要 Git 帮你储存一些未完成的修改，以便在完成时提交，你就可以<em>暂存</em>（stage）它们。Git 暂存区有三个英文名：staging area、cache 以及 index，这些名字都是一个意思，但有些时候 Git 只接受一个名字。
+    <p> Git 可以<em>跟踪</em>（track）暂存区里的文件，为你显示这个文件工作树和暂存区版本之间的区别，或者在你需要时从暂存区恢复工作树文件。如果一个文件只在工作树里，不在暂存区里，它就是 Git 未跟踪的（untracked）；反之，它就是跟踪的（tracked）。
 
-    <p> 如果一次修改既没有提交又没有暂存，那它就是未暂存的。注意，如果一个新建的文件没有暂存，那么 Git 会叫它 untracked file，而不是 unstaged change。
+    <p> 由于暂存区里的文件容易被修改，而且不能保存一个文件的多个版本，所以 Git 提供了一个叫做<em>提交</em>（commit）的操作来永久备份暂存区里的文件。你可以多次提交来保存项目的每个版本。
+
+    <p> 通常情况下，一个有经验的开发者会频繁地暂存工作树里的修改，改错了就从暂存区恢复工作树里的文件。提交也应该尽可能频繁，以便需要时从历史提交恢复文件。但每个提交都是署名且不可修改的，所以交之前要慎重。一个比较合适的提交策略是每实现一个功能或者修复一个问题就提交一次。
 
     <h2><code>git status</code></h2>
 
-    <p> 在你的 Git 仓库里运行：
+    <p> Git 管理的目录里运行：
 
     <pre>
 $ git status
@@ -54,7 +58,7 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)</pre>
 
-    <p> 分支（branch）「master」我们可以先忽略。可以看到所有的文件都是 untracked。想要暂存它们，Git 告诉我们，运行：
+    <p> 分支（branch）「master」我们可以先忽略。可以看到所有文件都是未跟踪的。想要暂存它们，Git 告诉我们，运行：
 
     <pre>
 $ git add empty_file files hello_file
@@ -78,7 +82,7 @@ $ echo nothing > empty_file</pre>
 
     <h2><code>git commit</code></h2>
 
-    <p> 提交现在已经暂存的修改，运行：
+    <p> 提交现在的暂存区，运行：
 
     <pre>
 $ git commit -m "Initial commit."
@@ -99,8 +103,6 @@ $ git commit -m "Initial commit."
 $ git status
 On branch master
 nothing to commit, working tree clean</pre>
-
-    <p> 「working tree」是当前目录的别称。Git 内部把目录叫做「tree」。
 
     <h2><code>git log</code></h2>
 
@@ -129,9 +131,9 @@ Date:   ??? ??? ?? ??:??:?? ???? +????
 
     Initial commit.</pre>
 
-    <p> Git 打印出了你的提交记录。<code>HEAD</code> 是你目前所在的提交。
+    <p> Git 打印出了你的提交记录。<code>HEAD</code> 就是「当前」的提交。
 
-    <p> 如果提交记录很长，Git 只会显示最上面的一部分。使用上下方向键或者 <a href="https://en.wikipedia.org/wiki/Arrow_keys#HJKL_keys">HJKL</a> 浏览。
+    <!-- <p> Git 内部以单向链表的形式储存提交，每一次提交都指向上一次提交。<code>HEAD</code> 就是当前的链表头。提交时，Git 让新的提交指向 <code>HEAD</code>，并更新 <code>HEAD</code> 为新的提交。 -->
 
     <h2><code>git tag</code></h2>
 
