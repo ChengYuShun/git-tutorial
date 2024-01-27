@@ -1,0 +1,102 @@
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Git 教程 &ndash; Git 高级操作</title>
+  </head>
+
+  <body>
+
+    <h1>Git 高级操作</h1>
+
+    <p> 以下是 Git 一些比较高级但某些情况下非常有用的功能。你可以先大概了解一些这些功能，在要用的时候再研究具体怎么用。
+
+    <h2><code>git stash</code></h2>
+
+    <p> 有时你对工作树做了一些修改，会导致程序无法编译或者运行错误；要把这些修改复原，又不丢掉它们，那你需要 <code>git stash</code>。
+
+    <p> 举个例子。我们把 <code>ls</code> 的帮助写到文件里并提交：
+
+    <pre>
+$ ls --help &gt; ls_help.txt
+$ git add ls_help.txt
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+&Tab;new file:   ls_help.txt
+
+$ git commit -m "Add help for `ls`"
+[master 9c8c031] Add help for `ls`.
+ 1 file changed, 138 insertions(+)
+ create mode 100644 ls_help.txt</pre>
+
+    <p> 然后，我们修改这个文件再暂存一下：
+
+    <pre>
+$ echo "We are editing..." &gt;&gt; ls_help.txt
+$ git add ls_help.txt
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+&Tab;modified:   ls_help.txt
+
+</pre>
+
+    <p> 这时，如果有人想要看原来帮助怎么办呢？我们不能提交，因为修改还没有完成；我们也不能 <code>checkout</code>，否则暂存区的修改就会被覆盖（你可以试一试）。这时我们就需要 <code>stash</code>：
+
+    <pre>
+$ git stash push
+Saved working directory and index state WIP on master: 9c8c031 Add help for `ls`.</pre>
+
+    <p> 「WIP on 分支: 提交」是 stash 的默认 message；你可以用 <code>-m</code> 选项来修改 message。<code>push</code> 是可省的。默认情况下工作树和暂存区里所有跟踪的文件都会被 stash，并且恢复到当前提交的状态；未跟踪的文件不受影响。
+
+    <p> 查看现在的 <code>stash</code>：
+
+    <pre>
+$ git stash list
+stash@{0}: WIP on master: 9c8c031 Add help for `ls`.</pre>
+
+    <p> 其中，<code>stash@{0}</code> 是这个 stash entry 的名字，0 是它的索引。如果你有多个 entries，那么最新的索引是 0，然后是 1，以此类推。
+
+    <p> 要恢复一个 entry，运行：
+
+    <pre>
+$ git stash pop 0
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+&Tab;modified:   ls_help.txt
+
+</pre>
+
+    <p> 如果不加 entry 的索引，那么默认索引是 0
+
+    <p> <code>git stash pop</code> 会在恢复文件后删除 entry。想要保留原来的 entry，把 <code>pop</code> 换成 <code>apply</code>。你可以也用 <code>git stash drop</code> 删除某个 entry。
+
+    <p> 注意默认情况下 <code>git stash pop</code> 和 <code>git stash apply</code> 只还原 stash 工作树里的文件到现在的工作树。选项 <code>--index</code> 可以让 Git 把 stash 暂存区里的文件也还原到现在暂存区。
+
+    <p> 以上只是 <code>git stash</code> 的基本使用方法，更多关于 <code>stash</code> 的细节涉及到冲突处理，我们需要放到分支之后。
+
+    <!-- <h2>部分暂存和</h2> -->
+
+    <!-- <p> 如果你只想暂存一个工作树文件的一部分怎么办？试试运行 <code>git add -p</code>： -->
+
+    <!-- <ul> -->
+    <!--   <li> 暂存某些文件：<code><b>u</b>pdate</code> -->
+    <!--   <li> 从当前提交恢复暂存区文件：<code><b>r</b>evert</code> -->
+    <!--   <li> 从 -->
+    <!-- </ul> -->
+
+    <hr>
+
+    <footer>
+      <p class="license-notice"><a href="..">这个教程</a>使用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" class="license-name">CC BY-NC-SA 4.0</a> 许可。</p>
+    </footer>
+
+  </body>
+
+</html>
