@@ -36,7 +36,7 @@ Initialized empty Git repository in 某某/test_repo/.git/</pre>
 
     <p> Git 可以<em>跟踪</em>（track）暂存区里的文件，为你显示这个文件工作树和暂存区版本之间的区别，或者在你需要时从暂存区恢复工作树文件。如果一个文件只在工作树里，不在暂存区里，它就是 Git 未跟踪的（untracked）；反之，它就是跟踪的（tracked）。
 
-    <p> 由于暂存区里的文件容易被修改，而且不能保存一个文件的多个版本，所以 Git 提供了一个叫做<em>提交</em>（commit）的操作来永久备份暂存区里的文件。你可以多次提交来保存项目的每个版本。
+    <p> 由于暂存区里的文件容易被修改，而且不能保存一个文件的多个版本（合并时除外），所以 Git 提供了一个叫做<em>提交</em>（commit）的操作来永久备份暂存区里的文件。你可以多次提交来保存项目的每个版本。
 
     <p> 通常情况下，一个有经验的开发者会频繁地暂存工作树里的修改，改错了就从暂存区恢复工作树里的文件。提交也应该尽可能频繁，以便需要时从历史提交恢复文件。但每个提交都是署名且不可修改的，所以交之前要慎重。一个比较合适的提交策略是每实现一个功能或者修复一个问题就提交一次。
 
@@ -52,9 +52,9 @@ No commits yet
 
 Untracked files:
   (use "git add &lt;file&gt;..." to include in what will be committed)
-        empty_file
-        files
-        hello_file
+&Tab;empty_file
+&Tab;files
+&Tab;hello_file
 
 nothing added to commit but untracked files present (use "git add" to track)</pre>
 
@@ -75,10 +75,33 @@ Changes to be committed:
 
 </pre>
 
-    <p> 像这样暂存或恢复修改完全可以根据 <code>git status</code> 的提示输入对应命令，没有必要把所有命令都记下来。接下来，试着从暂存区里恢复一些修改，再把以下的修改暂存一下：
+    <p> 「Changes to be committed」就是暂存区和<a href="#head">当前提交</a>之间的区别。由于我们还没有任何提交，所有暂存区里的文件都显示为「new file」。
+
+    <p> 修改一下工作树：
 
     <pre>
-$ echo nothing > empty_file</pre>
+$ echo oops > empty_file
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+&Tab;new file:    empty_file
+&Tab;new file:    files
+&Tab;new file:    hello_file
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+&Tab;modified:   empty_file
+
+</pre>
+
+    「Changes not staged for commit」就是工作树里跟踪的文件与它们暂存区版本之间的区别。
+
+    <p> 你可以根据提示，使用 <code>git restore 文件名</code> 或者 <code>git restore --staged 文件名</code> 恢复文件。
 
     <h2><code>git commit</code></h2>
 
@@ -131,7 +154,7 @@ Date:   ??? ??? ?? ??:??:?? ???? +????
 
     Initial commit.</pre>
 
-    <p> Git 打印出了你的提交记录。<code>HEAD</code> 就是「当前」的提交。
+    <p> Git 打印出了你的提交记录。<code id="head">HEAD</code> 就是「当前」的提交。每次提交后 <code>HEAD</code> 都会指向新的提交。
 
     <!-- <p> Git 内部以单向链表的形式储存提交，每一次提交都指向上一次提交。<code>HEAD</code> 就是当前的链表头。提交时，Git 让新的提交指向 <code>HEAD</code>，并更新 <code>HEAD</code> 为新的提交。 -->
 
@@ -253,9 +276,9 @@ index 0000000..e69de29</pre>
       <li> <code>git diff HEAD~ HEAD</code>
     </ul>
 
-    <h2><code>git checkout</code> 恢复文件</h2>
+    <h2><code>git checkout</code> 从提交中恢复文件</h2>
 
-    <p> <code>checkout</code> 命令有两种用法，我们现在只需要知道一种。运行：
+    <p> <code>checkout</code> 命令有很多种用法，我们现在只需要知道一种。运行：
 
     <pre>
 $ git diff HEAD~
@@ -283,7 +306,7 @@ index b49604a..e69de29 100644
 -nothing
 -just nothing</pre>
 
-    <p> <code>git checkout 某提交 某文件名</code> 会从该提交中恢复一个文件，直接把它放到暂存区里。
+    <p> <code>git checkout 某提交 某文件名</code> 会从该提交中恢复一个文件，把它放到暂存区和工作树里。
 
     <!-- <h2><code>git stash</code></h2> -->
 
