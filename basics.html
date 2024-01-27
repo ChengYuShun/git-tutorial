@@ -103,6 +103,44 @@ Changes not staged for commit:
 
     <p> 你可以根据提示，使用 <code>git restore 文件名</code> 或者 <code>git restore --staged 文件名</code> 恢复文件。
 
+    <h2><code>.gitignore</code></h2>
+
+    <p> 有些时候你希望 Git 忽略一些文件，比如编译语言的编译结果、一些工具的缓存以及操作系统生成的元数据。Git 会在每次你运行 <code>git status</code> 时显示它们未跟踪。想让 Git 不显示这些文件，你需要把它们加到 <code>.gitignore</code> 中：
+
+    <pre>
+$ echo to_be_ignored >> .gitignore
+$ touch to_be_ignored
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+&Tab;new file:    empty_file
+&Tab;new file:    files
+&Tab;new file:    hello_file
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+&Tab;.gitignore
+
+</pre>
+
+    <p> 然后再暂存 <code>.gitignore</code> 就可以了。
+
+    <p> 除了在当前目录中放 <code>.gitignore</code>，你也可以在子目录里放它，这样只会忽略子目录里的文件。另外，你还可以编辑 <code>~/.gitignore</code>；这里的修改会应用于所有 Git 管理的目录。
+
+    <p> macOS 会自动在每个目录里生成 <code>.DS_Store</code> 文件；Windows 也会在某些目录里生成 <code>Desktop.ini</code> 文件。这些文件不应该被 Git 管理，所以建议你运行：
+
+    <pre>
+$ echo .DS_Store >> ~/.gitignore</pre>
+
+    <p> 或者：
+
+    <pre>
+$ echo Desktop.ini >> ~/.gitignore</pre>
+
     <h2><code>git commit</code></h2>
 
     <p> 提交现在的暂存区，运行：
