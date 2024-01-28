@@ -193,6 +193,22 @@ $ cat ~/.gitconfig
 
     <p> 可以看到，Git 把你的设置存在了文件 <code>~/.gitconfig</code> 里。
 
+    <p id="configuring-editor"> 接下来我们要配置 Git 使用的文本编辑器。如果你使用 Windows，你可能已经在<a href="installation/windows.html#choosing-editor">安装时</a>配置了编辑器。如果还没有配置，输入：
+
+    <pre>
+$ git config --global core.editor "编辑器启动命令"</pre>
+
+    <p> 其中编辑器启动命令可以是：
+
+    <ul>
+      <li> VS Code：<code>code --wait</code>
+      <li> Xcode：<code>xed -w</code>
+      <li> Notepad++：<code>notepad++</code>
+      <li> TextEdit：<code>open -e -W -n</code>
+      <li> Windows 记事本：<code>notepad</code>
+      <li> PyCharm：<code>PyCharm --wait</code>
+    </ul>
+
     <p> 想了解 <code>git config</code> 的更多使用方法，运行 <code>git config -h</code> 或者 <code>man git config</code>。
 
     <hr>
