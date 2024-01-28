@@ -141,9 +141,9 @@ e - manually edit the current hunk
 
 </pre>
 
-    <p> 直接把有加号 <code>+</code> 的行删掉就可以不暂存它们；如果减号 <code>-</code>，把这些行之前的减号变成空格就可以不在暂存区里删掉它们。
+    <p> 直接把有加号 <code>+</code> 的行删掉就可以不暂存它们；如果减号 <code>-</code>，把这些行之前的减号改成空格就可以不在暂存区里删掉它们。
 
-    <p> 同理，你也可以使用 <code>git restore -p</code> 和 <code>git checkout -p</code> 来恢复部分文件。
+    <p> 同理，你也可以使用 <code>git restore -p</code> 来恢复文件的某部分。在恢复时，你需要把加号 <code>+</code> 改成空格或者删掉有减号 <code>-</code> 的行来取消恢复某一行。
 
     <hr>
 
