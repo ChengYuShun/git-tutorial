@@ -81,15 +81,69 @@ Changes not staged for commit:
 
     <p> 以上只是 <code>git stash</code> 的基本使用方法，更多关于 <code>stash</code> 的细节涉及到冲突处理，我们需要放到分支之后。
 
-    <!-- <h2>部分暂存和</h2> -->
+    <h2>部分暂存和恢复</h2>
 
-    <!-- <p> 如果你只想暂存一个工作树文件的一部分怎么办？试试运行 <code>git add -p</code>： -->
+    <p> 如果你只想暂存一个工作树文件的一部分怎么办？试试运行 <code>git add -p</code>：
 
-    <!-- <ul> -->
-    <!--   <li> 暂存某些文件：<code><b>u</b>pdate</code> -->
-    <!--   <li> 从当前提交恢复暂存区文件：<code><b>r</b>evert</code> -->
-    <!--   <li> 从 -->
-    <!-- </ul> -->
+    <pre>
+$ ls --help > ls_help.txt
+$ git add ls_help.txt
+$ echo We are editing >> ls_help.txt
+$ git add -p ls_help.txt
+diff --git a/ls_help.txt b/ls_help.txt
+index 3a169bb..efd450e 100644
+--- a/ls_help.txt
++++ b/ls_help.txt
+@@ -136,3 +136,4 @@ Exit status:
+ GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+ Full documentation <https://www.gnu.org/software/coreutils/ls>
+ or available locally via: info '(coreutils) ls invocation'
++We are editing
+(1/1) Stage this hunk [y,n,q,a,d,e,?]? </pre>
+
+    <p> Git 会问你要不要暂存这一块（hunk）修改。输入问号 <code>?</code> 获取帮助：
+
+    <pre>
+(1/1) Stage this hunk [y,n,q,a,d,e,?]? ?
+y - stage this hunk
+n - do not stage this hunk
+q - quit; do not stage this hunk or any of the remaining ones
+a - stage this hunk and all later hunks in the file
+d - do not stage this hunk or any of the later hunks in the file
+e - manually edit the current hunk
+? - print help
+@@ -136,3 +136,4 @@ Exit status:
+ GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+ Full documentation <https://www.gnu.org/software/coreutils/ls>
+ or available locally via: info '(coreutils) ls invocation'
++We are editing
+(1/1) Stage this hunk [y,n,q,a,d,e,?]? </pre>
+
+    <p> 有时你的可用命令还会更多。
+
+    <p> 想要获得精细的控制，输入字母 <code>e</code>，你就会在你选择的编辑器里看到：
+
+    <pre>
+# Manual hunk edit mode -- see bottom for a quick guide.
+@@ -136,3 +136,4 @@ Exit status:
+ GNU coreutils online help: &lt;https://www.gnu.org/software/coreutils/&gt;
+ Full documentation &lt;https://www.gnu.org/software/coreutils/ls&gt;
+ or available locally via: info '(coreutils) ls invocation'
++We are editing
+# ---
+# To remove '-' lines, make them ' ' lines (context).
+# To remove '+' lines, delete them.
+# Lines starting with # will be removed.
+# If the patch applies cleanly, the edited hunk will immediately be marked for staging.
+# If it does not apply cleanly, you will be given an opportunity to
+# edit again.  If all lines of the hunk are removed, then the edit is
+# aborted and the hunk is left unchanged.
+
+</pre>
+
+    <p> 直接把有加号 <code>+</code> 的行删掉就可以不暂存它们；如果减号 <code>-</code>，把这些行之前的减号变成空格就可以不在暂存区里删掉它们。
+
+    <p> 同理，你也可以使用 <code>git restore -p</code> 和 <code>git checkout -p</code> 来恢复部分文件。
 
     <hr>
 
