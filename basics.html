@@ -421,6 +421,8 @@ e - manually edit the current hunk
 
     <p> 同理，你也可以使用 <code>git restore -p</code> 来恢复文件的某部分。在恢复时，你需要把加号 <code>+</code> 改成空格或者删掉有减号 <code>-</code> 的行来取消恢复某一行。
 
+    <p> 如果你要暂存未跟踪的文件，你会发现直接 <code>git add -p</code> 不起作用。你需要先运行 <code>git add -N 文件名</code>，在暂存区新建一个空文件，然后再 <code>git add -p</code>。
+
     <hr>
 
     <footer>
