@@ -10,9 +10,119 @@
 
     <h1>Git 远程仓库</h1>
 
-    <p> 使用远程仓库（remotes）储存文件是一个很有用的功能。
+    <p> Git 远程仓库（remotes）可以帮你备份仓库以及跨设备工作。我们接下来会在本地建一个远程仓库演示其基本使用方法。
 
-    <p> 待续……
+    <h2>远程仓库管理</h2>
+
+    <p> 远程仓库其实就是一个 <a href="basics.html#repository">Git 仓库</a>。我们先新建一个仓库：
+
+    <pre>
+$ git init --bare ~/remote-git-repo
+Initialized empty Git repository in 用户目录/remote-git-repo/</pre>
+
+    <p> 选项 <code>--bare</code> 会创建出没有工作树的仓库。
+
+    <p> 进入到一个 Git 管理的目录里，添加一个名为 backup 远程仓库：
+
+    <pre>
+$ git remote add backup ~/remote-git-repo</pre>
+
+    <p> 你可以添加多个远程仓库。除此之外，你还可以：
+
+    <ul>
+      <li> <code>git remote get-url 远程仓库</code>：获取远程仓库地址
+      <li> <code>git remote set-url 远程仓库 新地址</code>：修改远程仓库地址
+      <li> <code>git remote remove 远程仓库</code>：删除远程仓库
+      <li> <code>git remote rename 远程仓库 新名字</code>：重命名远程仓库
+    </ul>
+
+    <p> 注意，现在远程仓库的地址是一个本地目录；如果你的远程仓库在某个云平台上的话，这个地址应该根据平台设置。
+
+    <h2><code>git push</code></h2>
+
+    <p> 把现在的提交全部上传到这个远程仓库里：
+
+    <pre>
+$ git push backup master
+Enumerating objects: ?, done.
+Counting objects: 100% (?/?), done.
+Delta compression using up to ? threads
+Compressing objects: 100% (?/?), done.
+Writing objects: 100% (?/?), ? KiB | ? MiB/s, done.
+Total ? (delta ?), reused ? (delta ?), pack-reused ?
+To 用户目录/remote-git-repo
+ * [new branch]      master -> master</pre>
+
+    <p> <code>master</code> 是上传到远程仓库的分支名，你现在可以不管它。
+
+    <p> 运行：
+
+    <pre>
+$ git log
+commit b1ac9863b2bcdfcf29c8bf87cf24150808a47d1a (HEAD -> master, backup/master)
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    提交 message</pre>
+
+    <p> 可以看到 <code>backup/master</code> 也就是远程仓库 <code>backup</code> 上的 <code>master</code> 分支已经更新到 <code>HEAD</code> 提交了。
+
+    <h2><code>git pull</code></h2>
+
+    <p> 如果说你有两台设备，在一台上做了提交，并且上传到了远程仓库，要怎么把这些提交下载到另一台上呢？
+
+    <p> 我们再新建一个仓库，假设它是第二台设备上的：
+
+    <pre>
+$ git init ~/device2
+Initialized empty Git repository in 用户目录/device2/.git/
+$ cd ~/device2
+$ git remote add backup ~/remote-git-repo
+</pre>
+
+    <p> 然后运行：
+
+    <pre>
+$ git pull backup master
+remote: Enumerating objects: ?, done.
+remote: Counting objects: 100% (?/?), done.
+remote: Compressing objects: 100% (?/?), done.
+remote: Total ? (delta ?), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (?/?), ? KiB | ? MiB/s, done.
+From 用户目录/remote-git-repo
+ * [new branch]      master     -> backup/master</pre>
+
+    <p> 再运行：
+
+    <pre>
+$ git log
+commit b1ac9863b2bcdfcf29c8bf87cf24150808a47d1a (HEAD -> master, backup/master)
+Author: 你的名字 &lt;你的邮箱&gt;
+Date:   ??? ??? ?? ??:??:?? ???? +????
+
+    提交 message</pre>
+
+    <p> 现在 <code>backup/master</code> 已经同步到本地了。
+
+    <h2><code>git clone</code></h2>
+
+    <p> 如果你只是想把远程仓库上的东西原封不动地下载下来，你可以直接克隆：
+
+    <pre>
+$ git clone https://github.com/ChengYuShun/git-tutorial.git
+</pre>
+
+    <p> 使用 HTTPS 协议下载。这个仓库里放的是<a href="..">这个教程</a>的源代码。
+
+    <p> 进入下载好的目录，运行：
+
+    <pre>
+$ git remote
+origin
+$ git remote get-url origin
+https://github.com/ChengYuShun/git-tutorial.git</pre>
+
+    <p> 可见 Git 会为克隆下来的仓库默认创建一个远程仓库 <code>origin</code>，并且其地址就是你下载的地址。
 
     <hr>
 
